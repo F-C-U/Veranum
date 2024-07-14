@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <title>
+      {% block titulo %}
+
+      {% endblock %}
+    </title>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="{% static 'veranum/css/bootstrap.min.css' %}" />
+    {% block imports %}
+
+    {% endblock %}
+  </head>
+
+  <body>
+    <header></header>
+    <main>
+      {% block contenido %}
+
+      {% endblock %}
+    </main>
+    <footer></footer>
+    {% block scripts %}
+      <script src="{% static 'veranum/js/bootstrap.bundle.min.js' %}"></script>
+    {% endblock %}
+  </body>
+</html>
