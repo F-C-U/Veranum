@@ -1,0 +1,5 @@
+db.sqlite3
+veranum/__pycache__/
+veranum/migrations/
+.venv
+sitio/__pycache__/
