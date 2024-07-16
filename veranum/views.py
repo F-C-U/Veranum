@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import *
+from django.contrib.auth import login
 from .forms import *
 
 
+
 def index(request):
-    return render(request, "index.html")
+    return render(request, "veranum/index.html")
+
 
 def crear_reserva(request):
     if request.method == "POST":
@@ -14,15 +16,29 @@ def crear_reserva(request):
             return redirect("lista_reservas")
     else:
         form = ReservaForm()
-    return render(request, "crear_reserva.html", {"form": form})
+    return render(request, "veranum/crear_reserva.html", {"form": form})
 
 
 def lista_reservas(request):
     reservas = Reserva.objects.all()
-    return render(request, "lista_reservas.html", {"reservas": reservas})
+    return render(request, "veranum/lista_reservas.html", {"reservas": reservas})
 
 
 def buscar_habitaciones(request):
     tipo = request.GET.get("tipo")
     habitaciones = Habitacion.objects.filter(tipo=tipo, disponible=True)
-    return render(request, "buscar_habitaciones.html", {"habitaciones": habitaciones})
+    return render(
+        request, "veranum/buscar_habitaciones.html", {"habitaciones": habitaciones}
+    )
+
+
+def registro(request):
+    if request.method == "POST":
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("index")
+    else:
+        form = RegistroForm()
+    return render(request, "veranum/registro.html", {"form": form})

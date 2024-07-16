@@ -1,5 +1,8 @@
 from django import forms
 from .models import *
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import Usuario
 
 
 class ReservaForm(forms.ModelForm):
@@ -29,4 +32,18 @@ class ReservaForm(forms.ModelForm):
             )
 
         return cleaned_data
-    
+
+
+class RegistroForm(UserCreationForm):
+    class Meta:
+        model = Usuario
+        fields = [
+            "username",
+            "email",
+            "nombre",
+            "apellido",
+            "telefono",
+            "fecha_nacimiento",
+            "password1",
+            "password2",
+        ]

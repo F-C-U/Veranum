@@ -1,19 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
 
-class Pasajero(models.Model):
+class Usuario(AbstractUser):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    email = models.EmailField()
     telefono = models.CharField(max_length=12)
     fecha_nacimiento = models.DateField()
-    fecha_registro = models.DateField()
-    fecha_modificacion = models.DateField()
-    fecha_eliminacion = models.DateField()
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    pass
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
@@ -39,7 +36,7 @@ class ServicioExtra(models.Model):
 
 
 class Reserva(models.Model):
-    pasajero = models.OneToOneField(Pasajero, on_delete=models.CASCADE)
+    pasajero = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -61,5 +58,3 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f"Reserva de {self.cliente} en {self.habitacion} del {self.fecha_inicio} al {self.fecha_fin}"
-    
-    
